@@ -171,9 +171,10 @@
       }
     }
   },
-  "defaultProject": "ngx-google-analytics-sdk",
   "cli": {
     "analytics": "3ce39043-c695-45ae-9eeb-07fed5fb3a2e",
-    "defaultCollection": "@angular-eslint/schematics"
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }
