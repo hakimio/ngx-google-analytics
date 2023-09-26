@@ -62,7 +62,6 @@ describe('GaEventDirective', () => {
     label: string;
     gaValue: number;
     gaInteraction: boolean;
-    gaBind = 'click';
     gaEvent: GaActionEnum | string;
   }
 
@@ -102,55 +101,54 @@ describe('GaEventDirective', () => {
 
   it('should call `trigger` on click event', () => {
     const ga: GoogleAnalyticsService = TestBed.inject(GoogleAnalyticsService),
-      spyOnGa = spyOn(ga, 'event'),
+      spyOnGa = jest.spyOn(ga, 'event'),
       input = fixture.debugElement.query(e => (e.nativeElement as HTMLButtonElement).classList.contains('test-click'));
 
     fixture.detectChanges();
     input.nativeElement.click();
     fixture.detectChanges();
 
-    expect(spyOnGa).toHaveBeenCalledWith('test-1', jasmine.any(Object));
+    expect(spyOnGa).toHaveBeenCalledWith('test-1', expect.any(Object));
   });
 
   it('should call `trigger` on focus event', () => {
     const ga: GoogleAnalyticsService = TestBed.inject(GoogleAnalyticsService),
-      spyOnGa = spyOn(ga, 'event'),
+      spyOnGa = jest.spyOn(ga, 'event'),
       input = fixture.debugElement.query(e => (e.nativeElement as HTMLButtonElement).classList.contains('test-focus'));
 
     fixture.detectChanges();
     input.nativeElement.dispatchEvent(new FocusEvent('focus'));
     fixture.detectChanges();
 
-    expect(spyOnGa).toHaveBeenCalledWith('test-2', jasmine.any(Object));
+    expect(spyOnGa).toHaveBeenCalledWith('test-2', expect.any(Object));
   });
 
   it('should call `trigger on blur event`', () => {
     const ga: GoogleAnalyticsService = TestBed.inject(GoogleAnalyticsService),
-      spyOnGa = spyOn(ga, 'event'),
+      spyOnGa = jest.spyOn(ga, 'event'),
       input = fixture.debugElement.query(e => (e.nativeElement as HTMLButtonElement).classList.contains('test-blur'));
 
     fixture.detectChanges();
     input.nativeElement.dispatchEvent(new FocusEvent('blur'));
     fixture.detectChanges();
 
-    expect(spyOnGa).toHaveBeenCalledWith('test-3', jasmine.any(Object));
+    expect(spyOnGa).toHaveBeenCalledWith('test-3', expect.any(Object));
   });
 
   it('should call `trigger on custom event`', () => {
     const ga: GoogleAnalyticsService = TestBed.inject(GoogleAnalyticsService),
-      spyOnGa = spyOn(ga, 'event'),
+      spyOnGa = jest.spyOn(ga, 'event'),
       input = fixture.debugElement.query(e => (e.nativeElement as HTMLButtonElement).classList.contains('test-custom'));
 
     fixture.detectChanges();
     input.nativeElement.dispatchEvent(new CustomEvent('custom'));
     fixture.detectChanges();
 
-    expect(spyOnGa).toHaveBeenCalledWith('test-5', jasmine.any(Object));
+    expect(spyOnGa).toHaveBeenCalledWith('test-5', expect.any(Object));
   });
 
   it('should warn a message when try to call a event w/o gaEvent/gaAction value', () => {
-    const ga: GoogleAnalyticsService = TestBed.inject(GoogleAnalyticsService),
-      spyOnConsole = spyOn(console, 'warn'),
+    const spyOnConsole = jest.spyOn(console, 'warn'),
       input = fixture.debugElement.query(e => (e.nativeElement as HTMLButtonElement).classList.contains('test-category'));
 
     fixture.detectChanges();
@@ -163,7 +161,7 @@ describe('GaEventDirective', () => {
   it('should grab gaAction and pass to event trigger', () => {
     const ga: GoogleAnalyticsService = TestBed.inject(GoogleAnalyticsService),
       action = 'action-t',
-      spyOnGa = spyOn(ga, 'event'),
+      spyOnGa = jest.spyOn(ga, 'event'),
       input = fixture.debugElement.query(e => (e.nativeElement as HTMLButtonElement).classList.contains('test-category'));
 
     host.gaAction = action;
@@ -171,13 +169,13 @@ describe('GaEventDirective', () => {
     input.nativeElement.click();
     fixture.detectChanges();
 
-    expect(spyOnGa).toHaveBeenCalledWith(action, jasmine.objectContaining({ category: 'test-4' }));
+    expect(spyOnGa).toHaveBeenCalledWith(action, expect.objectContaining({ category: 'test-4' }));
   });
 
   it('should grab gaEvent and pass to event trigger', () => {
     const ga: GoogleAnalyticsService = TestBed.inject(GoogleAnalyticsService),
       action = 'action-t',
-      spyOnGa = spyOn(ga, 'event'),
+      spyOnGa = jest.spyOn(ga, 'event'),
       input = fixture.debugElement.query(e => (e.nativeElement as HTMLButtonElement).classList.contains('test-category'));
 
     host.gaEvent = action;
@@ -185,13 +183,13 @@ describe('GaEventDirective', () => {
     input.nativeElement.click();
     fixture.detectChanges();
 
-    expect(spyOnGa).toHaveBeenCalledWith(action, jasmine.objectContaining({ category: 'test-4' }));
+    expect(spyOnGa).toHaveBeenCalledWith(action, expect.objectContaining({ category: 'test-4' }));
   });
 
   it('should grab gaCategory and pass to event trigger', () => {
     const ga: GoogleAnalyticsService = TestBed.inject(GoogleAnalyticsService),
       action = 'action-t',
-      spyOnGa = spyOn(ga, 'event'),
+      spyOnGa = jest.spyOn(ga, 'event'),
       input = fixture.debugElement.query(e => (e.nativeElement as HTMLButtonElement).classList.contains('test-category'));
 
     host.gaAction = action;
@@ -199,14 +197,14 @@ describe('GaEventDirective', () => {
     input.nativeElement.click();
     fixture.detectChanges();
 
-    expect(spyOnGa).toHaveBeenCalledWith(action, jasmine.objectContaining({ category: 'test-4' }));
+    expect(spyOnGa).toHaveBeenCalledWith(action, expect.objectContaining({ category: 'test-4' }));
   });
 
   it('should grab gaLabel and pass to event trigger', () => {
     const ga: GoogleAnalyticsService = TestBed.inject(GoogleAnalyticsService),
       action = 'action-t',
       label = 'label-t',
-      spyOnGa = spyOn(ga, 'event'),
+      spyOnGa = jest.spyOn(ga, 'event'),
       input = fixture.debugElement.query(e => (e.nativeElement as HTMLButtonElement).classList.contains('test-category'));
 
     host.gaAction = action;
@@ -215,14 +213,14 @@ describe('GaEventDirective', () => {
     input.nativeElement.click();
     fixture.detectChanges();
 
-    expect(spyOnGa).toHaveBeenCalledWith(action, jasmine.objectContaining({ category: 'test-4', label }));
+    expect(spyOnGa).toHaveBeenCalledWith(action, expect.objectContaining({ category: 'test-4', label }));
   });
 
   it('should grab label and pass to event trigger', () => {
     const ga: GoogleAnalyticsService = TestBed.inject(GoogleAnalyticsService),
       action = 'action-t',
       label = 'label-t',
-      spyOnGa = spyOn(ga, 'event'),
+      spyOnGa = jest.spyOn(ga, 'event'),
       input = fixture.debugElement.query(e => (e.nativeElement as HTMLButtonElement).classList.contains('test-category'));
 
     host.gaAction = action;
@@ -231,14 +229,14 @@ describe('GaEventDirective', () => {
     input.nativeElement.click();
     fixture.detectChanges();
 
-    expect(spyOnGa).toHaveBeenCalledWith(action, jasmine.objectContaining({ category: 'test-4', label }));
+    expect(spyOnGa).toHaveBeenCalledWith(action, expect.objectContaining({ category: 'test-4', label }));
   });
 
   it('should grab gaValue and pass to event trigger', () => {
     const ga: GoogleAnalyticsService = TestBed.inject(GoogleAnalyticsService),
       action = 'action-t',
       value = 40,
-      spyOnGa = spyOn(ga, 'event'),
+      spyOnGa = jest.spyOn(ga, 'event'),
       input = fixture.debugElement.query(e => (e.nativeElement as HTMLButtonElement).classList.contains('test-category'));
 
     host.gaAction = action;
@@ -247,14 +245,14 @@ describe('GaEventDirective', () => {
     input.nativeElement.click();
     fixture.detectChanges();
 
-    expect(spyOnGa).toHaveBeenCalledWith(action, jasmine.objectContaining({ category: 'test-4', value }));
+    expect(spyOnGa).toHaveBeenCalledWith(action, expect.objectContaining({ category: 'test-4', value }));
   });
 
   it('should grab gaInteraction and pass to event trigger', () => {
     const ga: GoogleAnalyticsService = TestBed.inject(GoogleAnalyticsService),
       action = 'action-t',
       gaInteraction = true,
-      spyOnGa = spyOn(ga, 'event'),
+      spyOnGa = jest.spyOn(ga, 'event'),
       input = fixture.debugElement.query(e => (e.nativeElement as HTMLButtonElement).classList.contains('test-category'));
 
     host.gaAction = action;
@@ -263,7 +261,7 @@ describe('GaEventDirective', () => {
     input.nativeElement.click();
     fixture.detectChanges();
 
-    expect(spyOnGa).toHaveBeenCalledWith(action, jasmine.objectContaining({ category: 'test-4', interaction: gaInteraction }));
+    expect(spyOnGa).toHaveBeenCalledWith(action, expect.objectContaining({ category: 'test-4', interaction: gaInteraction }));
   });
 
 });

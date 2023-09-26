@@ -1,6 +1,7 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { TestPageBComponent } from './test-page-b.component';
+import {TestPageBComponent} from './test-page-b.component';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('TestPageBComponent', () => {
   let component: TestPageBComponent;
@@ -8,9 +9,14 @@ describe('TestPageBComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ TestPageBComponent ]
-    })
-    .compileComponents();
+        declarations: [
+          TestPageBComponent
+        ],
+        imports: [
+          RouterTestingModule
+        ]
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {

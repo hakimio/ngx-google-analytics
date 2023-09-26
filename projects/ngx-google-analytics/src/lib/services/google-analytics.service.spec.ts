@@ -11,8 +11,7 @@ describe('GoogleAnalyticsService', () => {
   };
 
   const tracking = 'GA-000000000';
-  let spyOnConsole: jasmine.Spy,
-    spyOnGtag: jasmine.Spy;
+  let spyOnGtag: jest.SpyInstance<any, unknown[]>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -23,8 +22,7 @@ describe('GoogleAnalyticsService', () => {
   });
 
   beforeEach(() => {
-    spyOnConsole = spyOn(console, 'error');
-    spyOnGtag = spyOn(window as any, 'gtag');
+    spyOnGtag = jest.spyOn(window as any, 'gtag');
   });
 
   it('should call gtag fn w/ action/command pair', () => {
@@ -45,7 +43,7 @@ describe('GoogleAnalyticsService', () => {
 
       ga.event(action);
 
-      expect(spyOnGtag).toHaveBeenCalledWith('event', action, jasmine.any(Object));
+      expect(spyOnGtag).toHaveBeenLastCalledWith('event', action);
     });
 
     it('should find `event_category` property on gtag command', () => {
@@ -196,7 +194,7 @@ describe('GoogleAnalyticsService', () => {
 
       ga.exception(description);
 
-      expect(spyOnGtag).toHaveBeenCalledWith('event', 'exception', jasmine.objectContaining({ description }));
+      expect(spyOnGtag).toHaveBeenCalledWith('event', 'exception', expect.objectContaining({ description }));
     });
 
     it('should send `fatal` attribute on gtag command', () => {
@@ -205,7 +203,7 @@ describe('GoogleAnalyticsService', () => {
 
       ga.exception(undefined, fatal);
 
-      expect(spyOnGtag).toHaveBeenCalledWith('event', 'exception', jasmine.objectContaining({ fatal }));
+      expect(spyOnGtag).toHaveBeenCalledWith('event', 'exception', expect.objectContaining({ fatal }));
     });
 
   });

@@ -7,7 +7,7 @@
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
-    "module": "es2020",
+    "module": "ES2022",
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "target": "ES2022",
@@ -15,7 +15,7 @@
       "node_modules/@types"
     ],
     "lib": [
-      "es2017",
+      "ES2022",
       "dom"
     ],
     "paths": {

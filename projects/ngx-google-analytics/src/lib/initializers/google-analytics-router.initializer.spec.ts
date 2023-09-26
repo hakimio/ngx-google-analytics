@@ -12,14 +12,14 @@ describe('googleAnalyticsRouterInitializer(settings, gaService)', () => {
   }
 
   let gaService: GoogleAnalyticsService,
-      spyOnGaService: jasmine.Spy,
+      spyOnGaService:  jest.SpyInstance,
       router$: Subject<any>,
       router: Router,
       component: ComponentRef<any>;
 
   beforeEach(() => {
     gaService = TestBed.inject(GoogleAnalyticsService);
-    spyOnGaService = spyOn(gaService, 'pageView');
+    spyOnGaService = jest.spyOn(gaService, 'pageView');
     router$ = new Subject<any>();
     router = fakeTransform<Router>({
       events: router$

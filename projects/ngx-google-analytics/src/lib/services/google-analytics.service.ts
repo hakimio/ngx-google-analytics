@@ -59,19 +59,19 @@ export class GoogleAnalyticsService {
   event(action: GaActionEnum | string, options?: IGoogleAnalyticsServiceEvent) {
     try {
       const opt = new Map<string, any>();
-      if (options.category !== undefined) {
+      if (options?.category !== undefined) {
         opt.set('event_category', options.category);
       }
-      if (options.label !== undefined) {
+      if (options?.label !== undefined) {
         opt.set('event_label', options.label);
       }
-      if (options.value !== undefined) {
+      if (options?.value !== undefined) {
         opt.set('value', options.value);
       }
-      if (options.interaction !== undefined) {
+      if (options?.interaction !== undefined) {
         opt.set('interaction', options.interaction);
       }
-      if (options.options !== undefined) {
+      if (options?.options !== undefined) {
         Object
           .entries(options.options)
           .map(([key, value]) => opt.set(key, value));
@@ -105,13 +105,13 @@ export class GoogleAnalyticsService {
   pageView(path: string, options?: IGoogleAnalyticsServicePageView) {
     try {
       const opt = new Map<string, any>([['page_path', path]]);
-      if (options.title !== undefined) {
+      if (options?.title !== undefined) {
         opt.set('page_title', options.title);
       }
-      if (options.location !== undefined || this.document) {
-        opt.set('page_location', (options.location || this.document.location.href));
+      if (options?.location !== undefined || this.document) {
+        opt.set('page_location', (options?.location ?? this.document.location.href));
       }
-      if (options.options !== undefined) {
+      if (options?.options !== undefined) {
         Object
           .entries(options.options)
           .map(([key, value]) => opt.set(key, value));
@@ -140,13 +140,13 @@ export class GoogleAnalyticsService {
   appView(screen: string, appName: string, options?: IGoogleAnalyticsServiceAppView) {
     try {
       const opt = new Map<string, any>([['screen_name', screen], ['app_name', appName]]);
-      if (options.appId !== undefined) {
+      if (options?.appId !== undefined) {
         opt.set('app_id', options.appId);
       }
-      if (options.appVersion !== undefined) {
+      if (options?.appVersion !== undefined) {
         opt.set('app_version', options.appVersion);
       }
-      if (options.installerId !== undefined) {
+      if (options?.installerId !== undefined) {
         opt.set('app_installer_id', options.installerId);
       }
       this.gtag('event', 'screen_view', this.toKeyValue(opt));

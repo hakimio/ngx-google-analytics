@@ -59,13 +59,13 @@ describe('GaEventFormInputDirective', () => {
 
 	it('should call `GoogleAnalyticsService.event()` on trigger focus at input', () => {
 		const ga: GoogleAnalyticsService = TestBed.inject(GoogleAnalyticsService),
-			spyOnGa = spyOn(ga, 'event'),
+			spyOnGa = jest.spyOn(ga, 'event'),
 			input = fixture.debugElement.query(e => e.name === 'input');
 
 		fixture.detectChanges();
 		input.nativeElement.dispatchEvent(new FocusEvent('focus'));
 		fixture.detectChanges();
 
-		expect(spyOnGa).toHaveBeenCalledWith('teste', jasmine.any(Object));
+		expect(spyOnGa).toHaveBeenCalledWith('teste', expect.any(Object));
 	});
 });
