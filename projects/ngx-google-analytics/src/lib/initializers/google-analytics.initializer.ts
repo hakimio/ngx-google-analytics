@@ -39,7 +39,7 @@ export function GoogleAnalyticsInitializer(
 
         if (!gtag) {
             if (!isDevMode()) {
-                console.error('Could\'nt create or read gtag() fn. Make sure this module is running on a Browser w/ access to Window interface.');
+                console.error('Couldn\'t create or read gtag() fn. Make sure this module is running on a Browser w/ access to Window interface.');
             }
 
             return;
@@ -47,7 +47,7 @@ export function GoogleAnalyticsInitializer(
 
         if (!document) {
             if (!isDevMode()) {
-                console.error('Could\'nt to access Document interface. Make sure this module is running on a Browser w/ access to Document interface.');
+                console.error('Couldn\'t to access Document interface. Make sure this module is running on a Browser w/ access to Document interface.');
             }
         }
 

@@ -1,7 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
 /**
- * A string that represents a default GA action used by Google to generate e-commerce inteligence.
+ * A string that represents default GA action used by Google to generate e-commerce intelligence.
  *
  * You can provide a custom string as well.
  * @deprecated use lib/enums/ga-action.enum.ts instead

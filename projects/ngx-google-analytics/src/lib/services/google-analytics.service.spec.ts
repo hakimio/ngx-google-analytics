@@ -198,7 +198,7 @@ describe('GoogleAnalyticsService', () => {
         });
 
         it('should send `description` attribute on gtag command', () => {
-            const description = 'Deu muito ruim',
+            const description = 'Something went wrong',
                 ga = TestBed.inject(GoogleAnalyticsService);
 
             ga.exception(description);
