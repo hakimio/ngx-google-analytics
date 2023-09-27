@@ -28,4 +28,5 @@ export * from './lib/types/ga-action.type';
 export * from './lib/types/gtag.type';
 
 export * from './lib/ngx-google-analytics.module';
-export * from './lib/ngx-google-analytics-router/ngx-google-analytics-router.module';
+export * from './lib/ngx-google-analytics-router/ngx-google-analytics-router.provider';
+export * from './lib/ngx-google-analytics.provider';

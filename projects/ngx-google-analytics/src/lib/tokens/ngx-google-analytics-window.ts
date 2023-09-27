@@ -1,4 +1,4 @@
 export type GaWindow = Window & {
-  gtag?: any;
-  dataLayer?: any;
+    gtag?: any;
+    dataLayer?: any;
 }

@@ -1,14 +1,15 @@
-import { Directive, Input } from '@angular/core';
+import {Directive, Input} from '@angular/core';
 
 @Directive({
-  selector: `[gaEvent][gaCategory],
-             [gaCategory]`,
-  exportAs: 'gaCategory'
+    selector: `
+        [gaEvent][gaCategory],
+        [gaCategory]
+    `,
+    exportAs: 'gaCategory',
+    standalone: true
 })
 export class GaEventCategoryDirective {
 
-  constructor() { }
-
-  @Input() gaCategory!: string;
+    @Input() gaCategory!: string;
 
 }

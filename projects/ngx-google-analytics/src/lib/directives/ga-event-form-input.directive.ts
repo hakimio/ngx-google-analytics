@@ -1,23 +1,29 @@
-import { Directive, Host, Optional, Input } from '@angular/core';
-import { GaEventDirective } from './ga-event.directive';
+import {Directive, inject, Input} from '@angular/core';
+import {GaEventDirective} from './ga-event.directive';
 
 @Directive({
-  selector: `input[gaEvent],
-             select[gaEvent],
-             textarea[gaEvent]`
+    selector: `
+        input[gaEvent],
+        select[gaEvent],
+        textarea[gaEvent]
+    `,
+    standalone: true
 })
 export class GaEventFormInputDirective {
 
-  constructor(
-    @Host() @Optional() protected gaEvent: GaEventDirective
-  ) {
-    this.gaBind = 'focus';
-  }
+    private readonly gaEvent = inject(GaEventDirective, {
+        optional: true,
+        host: true
+    });
 
-  @Input() set gaBind(bind: string) {
-    if (this.gaEvent) {
-      this.gaEvent.gaBind = bind;
+    constructor() {
+        this.gaBind = 'focus';
     }
-  }
+
+    @Input() set gaBind(bind: string) {
+        if (this.gaEvent) {
+            this.gaEvent.gaBind = bind;
+        }
+    }
 
 }

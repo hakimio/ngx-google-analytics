@@ -1,100 +1,109 @@
 # Ngx Google Analytics 4
 
-> An easy implementation to track GA4 for Angular apps.
+> A simple way to track GA4 events in Angular apps.
 
 `ngx-google-analytics-4` is a fork of __Max Andriani's__ `ngx-google-analytics`.
 
 # Index
 
 - [Setup](#setup)
-  - [NPM](#npm)
+  - [Install the package](#install-the-package)
   - [Simple Setup](#simple-setup)
-  - [Setup Routing Module](#setup-routing-module)
-  - [Advanced Setup Routing Module](#advanced-setup-routing-module)
+  - [Setup Router Provider](#setup-router-provider)
+  - [Advanced Router Provider Setup](#advanced-router-provider-setup)
 - [GoogleAnalyticsService](#googleanalyticsservice)
-  - [Call Interface Events](#call-interface-events)
-  - [Call GA Page Views and Virtual Page Views](#call-ga-page-views-and-virtual-page-views)
+  - [Register Analytics events](#register-analytics-events)
+  - [Manually register page views](#manually-register-page-views)
 - [Directives](#directives)
-  - [Simple directive use](#simple-directive-use)
-  - [Simple input use](#simple-input-use)
-  - [Grouped directives](#grouped-directives)
+  - [Simple directive usage](#simple-directive-usage)
+  - [Usage on input elements](#usage-on-input-elements)
+  - [Directive groups](#directive-groups)
 
 ## Setup
 
-### NPM
-
-To set up this package on you project, just call the following command.
+### Install the package
 
 ```
-npm install ngx-google-analytics
+npm install ngx-google-analytics-4
 ```
 
 ### Simple Setup
 
-On your Angular Project, you shall include the `NgxGoogleAnalyticsModule` on your highest level application module. ie `AddModule`. The easiest install mode call the `forRoot()` method and pass the [GA tracking code](https://support.google.com/tagmanager/answer/12326985).
+- Add `NgxGoogleAnalyticsModule` in your root app module (`AppModule`) `imports`. 
+- Add `provideGoogleAnalytics('ga4-tag-id')` in your root app providers. If you can not find your GA4 tag id, see [this](https://support.google.com/analytics/answer/9539598?sjid=1584949217252276099-EU) Google help page.
 
 ```ts
-import { NgxGoogleAnalyticsModule } from 'ngx-google-analytics';
+import {NgxGoogleAnalyticsModule, provideGoogleAnalytics} from 'ngx-google-analytics-4';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    NgxGoogleAnalyticsModule.forRoot('tracking-code')
-  // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
-})
-export class AppModule { }
-```
-
-### Setup Routing Module
-
-We provide a second Module Dependency to configure Router Event Bindings and perform automatic page view every time your application navigates to another page.
-
-Add ```NgxGoogleAnalyticsRouterModule``` on AppModule enable auto track `Router` events.
-
-**IMPORTANT:** This Module just subscribe to Router events when the bootstrap component is created, and then cleans up any subscriptions related to previous component when it is destroyed. You may get some issues if using this module on a server side rendering or multiple bootstrap components. If it is your case, I suggest you subscribe to events by yourself. You can use git repository as reference.
-
-```ts
-import { NgxGoogleAnalyticsModule, NgxGoogleAnalyticsRouterModule } from 'ngx-google-analytics';
-...
-
-@NgModule({
-  ...
-  imports: [
-    ...
-    NgxGoogleAnalyticsModule.forRoot(environment.ga),
-    NgxGoogleAnalyticsRouterModule
-//  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  ]
+    declarations: [
+        AppComponent
+    ],
+    imports: [
+        BrowserModule,
+        NgxGoogleAnalyticsModule
+        // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ],
+    providers: [
+        provideGoogleAnalytics('ga4-tag-id')
+        // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {}
 ```
 
-### Advanced Setup Routing Module
+### Setup Router Provider
 
-You can customize some rules to include/exclude routes on `NgxGoogleAnalyticsRouterModule`. The include/exclude settings allow:
+If you are using Angular Router and would like to track page views, you can include `provideGoogleAnalyticsRouter()` in your root app providers.
 
-* Simple route match: `{ include: [ '/full-uri-match' ] }`;
-* Wildcard route match: `{ include: [ '*/public/*' ] }`;
-* Regular Expression route match: `{ include: [ /^\/public\/.*/ ] }`;
+**IMPORTANT:** `provideGoogleAnalyticsRouter()` is not compatible with SSR and should not be included in server app providers.
 
 ```ts
-import { NgxGoogleAnalyticsModule, NgxGoogleAnalyticsRouterModule } from 'ngx-google-analytics';
-...
+import {NgxGoogleAnalyticsModule, provideGoogleAnalytics, provideGoogleAnalyticsRouter} from 'ngx-google-analytics-4';
 
 @NgModule({
-  ...
-  imports: [
-    ...
-    NgxGoogleAnalyticsModule.forRoot(environment.ga),
-    NgxGoogleAnalyticsRouterModule.forRoot({ include: [...], exclude: [...] })
-//  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  ]
+    imports: [
+        // ...
+        NgxGoogleAnalyticsModule
+        // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ],
+    providers: [
+        provideGoogleAnalytics('ga4-tag-id'),
+        provideGoogleAnalyticsRouter()
+        //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ]
+})
+export class AppModule {}
+```
+
+### Advanced Router Provider Setup
+
+You can include or exclude some routes by passing options object to `provideGoogleAnalyticsRouter(options)`. 
+
+Following path matches are supported:
+
+- Simple path match: `{ include: [ '/full-uri-match' ] }`;
+- Wildcard path match: `{ include: [ '*/public/*' ] }`;
+- Regex path match: `{ include: [ /^\/public\/.*/ ] }`;
+
+```ts
+import {NgxGoogleAnalyticsModule, provideGoogleAnalytics, provideGoogleAnalyticsRouter} from 'ngx-google-analytics-4';
+
+@NgModule({
+    imports: [
+        // ...
+        NgxGoogleAnalyticsModule
+        // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ],
+    providers: [
+        provideGoogleAnalytics('ga4-tag-id'),
+        provideGoogleAnalyticsRouter({
+            include: ['/some-path'],
+            exclude: ['*/another/path/*']
+        })
+        //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ]
 })
 export class AppModule {}
 ```
@@ -102,69 +111,80 @@ export class AppModule {}
 
 ## GoogleAnalyticsService
 
-This service provides an easy and strong typed way to call `gtag()` command. It does nothing else then convert a strong typed list of arguments into a standard `gtag` api call.
+The service provides strongly typed way to call `gtag()` command. Apart from type checking, it does not do 
+any other validation or transformation of the parameters.
 
-### Call Interface Events
+### Register Analytics events
 
 ```ts
-@Component( ... )
+@Component()
 export class TestFormComponent {
 
-  constructor(
-    private $gaService: GoogleAnalyticsService
-  ) {}
+    private readonly gaService = inject(GoogleAnalyticsService);
 
-  onUserInputName() {
-    ...
-    this.$gaService.event('enter_name', 'user_register_form', 'Name');
-  }
+    onUserInputName() {
+        this.gaService.event('enter_name', {
+            category: 'user_register_form',
+            label: 'Name',
+            options: {
+                customDimension: 'foo_bar'
+            }
+        });
+    }
 
-  onUserInputEmail() {
-    ...
-    this.$gaService.event('enter_email', 'user_register_form', 'Email');
-  }
+    onUserInputEmail() {
+        this.gaService.event('enter_email', {
+            category: 'user_register_form',
+            label: 'Email'
+        });
+    }
 
-  onSubmit() {
-    ...
-    this.$gaService.event('submit', 'user_register_form', 'Enviar');
-  }
+    onSubmit() {
+        this.gaService.event('submit', {
+            category: 'user_register_form',
+            label: 'Enviar' 
+        });
+    }
 
 }
 ```
 
-### Call GA Page Views and Virtual Page Views
+### Manually register page views
 
 ```ts
-@Component(...)
+@Component()
 export class TestPageComponent implements OnInit {
 
-  constructor(
-    protected $gaService: GoogleAnalyticsService
-  ) {}
+    private readonly gaService = inject(GoogleAnalyticsService);
 
-  ngOnInit() {
-    this.$gaService.pageView('/teste', 'Teste de Title')
-  }
-
-  onUserLogin() {
-    ...
-    this.$gaService.pageView('/teste', 'Teste de Title', undefined, {
-      user_id: 'my-user-id'
-    })
-  }
+    ngOnInit() {
+        this.gaService.pageView('/test', {
+            title: 'Test the Title'
+        });
+    }
+    
+    onUserLogin() {
+        this.gaService.pageView('/test', {
+            title: 'Test the Title',
+            options: {
+                user_id: 'my-user-id'
+            }
+        });
+    }
 
 }
 ```
 
 ## Directives
 
-In a way to help you to be more productive on attach GA events on UI elements. We create some directives to handle `GoogleAnalyticsService` and add event listener by simple attributes.
+Directives provide a simple way to register Analytics events. Instead of manually using `GoogleAnalyticsService`, 
+you can simply add `ga*` attributes to your html elements.
 
-### Simple directive use
+### Simple directive usage
 
-The default behaviour is call `gtag` on click events, but you can change the trigger to any HTML Event (e.g. `focus`, `blur` or custom events) as well.
+By default, the directive calls `gtag()` on click events, but you can also specify other events by providing `gaBind` attribute.
 
-```js
+```html
 <div>
   <button gaEvent="click_test" gaCategory="ga_directive_test">Click Test</button>
   <button gaEvent="focus_test" gaCategory="ga_directive_test" gaBind="focus">Focus Test</button>
@@ -173,26 +193,25 @@ The default behaviour is call `gtag` on click events, but you can change the tri
 </div>
 ```
 
-### Simple input use
+### Usage on `input` elements
 
-If you attach gaEvent directive on form elements, it will assume focus event as default `trigger`.
+When `gaEvent` directive is used on form elements, the default `trigger` is `focus` event.
 
-```js
+```html
 <div>
   <input gaEvent="fill_blur" gaCategory="ga_directive_input_test" placeholder="Auto Blur Test"/>
 </div>
 ```
 
-### Grouped directives
+### Directive groups
 
-Sometimes your UX guy want to group several elements in the interface at same group to help his analysis and reports. Fortunately the `gaCategory` directive can be placed on the highest level group 
-element and all child `gaEvent` will assume the parent `gaCategory` as their parent.
+The `gaCategory` directive can be specified on higher level of html element group to specify same category for all 
+child elements.
 
-```js
+```html
 <div gaCategory="ga_test_category">
   <button gaEvent gaAction="click_test">Click Test</button>
   <button gaEvent gaAction="focus_test" gaBind="focus">Focus Test</button>
   <button gaEvent gaAction="blur_test" gaBind="blur">Blur Test</button>
 </div>
 ```
-
