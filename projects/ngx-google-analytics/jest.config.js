@@ -1,7 +1,7 @@
 module.exports = {
     transform: {
         '^.+\\.ts$': ['ts-jest', {
-            diagnostics:  false
+            diagnostics: false
         }]
     },
     verbose: true

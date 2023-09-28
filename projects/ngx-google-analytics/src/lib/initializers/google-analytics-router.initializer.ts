@@ -33,7 +33,7 @@ export function GoogleAnalyticsRouterInitializer(
     settings: IGoogleAnalyticsRoutingSettings,
     gaService: GoogleAnalyticsService
 ) {
-    return async (c: ComponentRef<unknown>) => {
+    return (c: ComponentRef<unknown>) => {
         const router = c.injector.get(Router);
         const {include = [], exclude = []} = settings ?? {};
         const includeRules = normalizePathRules(include);
