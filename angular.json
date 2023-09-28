@@ -84,6 +84,15 @@
             "configPath": "src/jest.config.js",
             "tsConfig": "src/tsconfig.spec.json"
           }
+        },
+        "lint": {
+            "builder": "@angular-eslint/builder:lint",
+            "options": {
+                "lintFilePatterns": [
+                    "src/**/*.ts",
+                    "src/**/*.html"
+                ]
+            }
         }
       }
     },
@@ -105,19 +114,6 @@
             }
           },
           "defaultConfiguration": "development"
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.html"
-            ],
-            "tsConfig": "e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
         }
       }
     },

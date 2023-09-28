@@ -8,6 +8,9 @@
     "build": "ng build ngx-google-analytics",
     "test": "ng test ngx-google-analytics",
     "lint": "ng lint ngx-google-analytics",
+    "build:demo": "ng build ngx-google-analytics-sdk",
+    "test:demo": "ng test ngx-google-analytics-sdk",
+    "lint:demo": "ng lint ngx-google-analytics-sdk",
     "e2e": "ng e2e"
   },
   "private": true,
