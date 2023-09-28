@@ -23,23 +23,16 @@ jobs:
 
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
+    - uses: actions/checkout@v3
+    - name: Set Node.js 18.x
+      uses: actions/setup-node@v3
       with:
-        node-version: '16'
-        registry-url: 'https://registry.npmjs.org'
+        node-version: 18.x
 
-    - name: 'Cache node Modules'
-      uses: actions/cache@v1
+    - name: Run install
+      uses: borales/actions-yarn@v4
       with:
-        path: ~.npm
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
-
-    - run: npm ci --ignore-scripts
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        cmd: install
 
     - name: Build Angular Library
       run: npm run build
