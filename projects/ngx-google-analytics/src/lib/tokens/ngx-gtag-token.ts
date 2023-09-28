@@ -8,10 +8,10 @@ import {NGX_WINDOW} from './ngx-window-token';
 /**
  * Check if there is some global function called gtag on Window object, or create an empty function that doesn't break code...
  */
-export function getGtagFn(window: GaWindow, dataLayer: DataLayer): GtagFn {
+export function getGtagFn(window: GaWindow, dataLayer: DataLayer): GtagFn | null {
     return (window)
-        ? window['gtag'] = window['gtag'] || function () {
-            dataLayer.push(arguments as any);
+        ? window['gtag'] = window['gtag'] || function (...args) {
+            dataLayer.push(args);
         }
         : null;
 }

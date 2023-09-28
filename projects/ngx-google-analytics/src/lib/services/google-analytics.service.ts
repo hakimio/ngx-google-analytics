@@ -8,6 +8,8 @@ import {
 } from '../interfaces/i-google-analytics-sevice';
 import {NGX_GOOGLE_ANALYTICS_SETTINGS_TOKEN} from '../tokens/ngx-google-analytics-settings-token';
 import {NGX_GTAG_FN} from '../tokens/ngx-gtag-token';
+import {Primitive} from '../types/primitive.type';
+import {GtagFn} from '../types/gtag.type';
 
 @Injectable({
     providedIn: 'root'
@@ -25,13 +27,13 @@ export class GoogleAnalyticsService {
     /**
      * Call native GA Tag
      */
-    gtag(...args: any[]) {
+    gtag: GtagFn = (...args) => {
         try {
             this._gtag(...args.filter(x => x !== undefined));
-        } catch (err: any) {
+        } catch (err) {
             this.throw(err);
         }
-    }
+    };
 
     /**
      * Send an event trigger to GA. This is the same as:
@@ -47,7 +49,7 @@ export class GoogleAnalyticsService {
      */
     event(action: GaActionEnum | string, options?: IGoogleAnalyticsServiceEvent) {
         try {
-            const opt = new Map<string, any>();
+            const opt = new Map<string, Primitive>();
             if (options?.category !== undefined) {
                 opt.set('event_category', options.category);
             }
@@ -71,7 +73,7 @@ export class GoogleAnalyticsService {
             } else {
                 this.gtag('event', action as string);
             }
-        } catch (error: any) {
+        } catch (error) {
             this.throw(error);
         }
     }
@@ -93,7 +95,7 @@ export class GoogleAnalyticsService {
      */
     pageView(path: string, options?: IGoogleAnalyticsServicePageView) {
         try {
-            const opt = new Map<string, any>([['page_path', path]]);
+            const opt = new Map<string, Primitive>([['page_path', path]]);
             if (options?.title !== undefined) {
                 opt.set('page_title', options.title);
             }
@@ -106,7 +108,7 @@ export class GoogleAnalyticsService {
                     .map(([key, value]) => opt.set(key, value));
             }
             this.gtag('config', this.settings.ga4TagId, this.toKeyValue(opt));
-        } catch (error: any) {
+        } catch (error) {
             this.throw(error);
         }
     }
@@ -128,7 +130,7 @@ export class GoogleAnalyticsService {
      */
     appView(screen: string, appName: string, options?: IGoogleAnalyticsServiceAppView) {
         try {
-            const opt = new Map<string, any>([['screen_name', screen], ['app_name', appName]]);
+            const opt = new Map<string, Primitive>([['screen_name', screen], ['app_name', appName]]);
             if (options?.appId !== undefined) {
                 opt.set('app_id', options.appId);
             }
@@ -139,11 +141,12 @@ export class GoogleAnalyticsService {
                 opt.set('app_installer_id', options.installerId);
             }
             this.gtag('event', 'screen_view', this.toKeyValue(opt));
-        } catch (error: any) {
+        } catch (error) {
             this.throw(error);
         }
     }
 
+    // noinspection SpellCheckingInspection
     /**
      * Defines persistent values on GoogleAnalytics
      *
@@ -156,10 +159,10 @@ export class GoogleAnalyticsService {
      * });
      * ```
      */
-    set(...options: Array<any>) {
+    set(options: Record<string, Primitive>) {
         try {
-            this._gtag('set', ...options);
-        } catch (err: any) {
+            this._gtag('set', options);
+        } catch (err) {
             this.throw(err);
         }
     }
@@ -179,7 +182,7 @@ export class GoogleAnalyticsService {
      */
     exception(description?: string, fatal?: boolean) {
         try {
-            const opt = new Map<string, any>();
+            const opt = new Map<string, Primitive>();
             if (description !== undefined) {
                 opt.set('description', description);
             }
@@ -192,7 +195,7 @@ export class GoogleAnalyticsService {
             } else {
                 this.gtag('event', 'app_exception');
             }
-        } catch (error: any) {
+        } catch (error) {
             this.throw(error);
         }
     }
@@ -203,7 +206,7 @@ export class GoogleAnalyticsService {
         }
     }
 
-    private toKeyValue(map: Map<string, any>): { [param: string]: any } | undefined {
+    private toKeyValue(map: Map<string, Primitive>): { [param: string]: Primitive } | undefined {
         if (map.size) // > 0
             return Object.fromEntries(map);
     }

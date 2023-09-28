@@ -1,4 +1,7 @@
+import {GtagFn} from '../types/gtag.type';
+import {DataLayer} from '../types/data-layer.type';
+
 export type GaWindow = Window & {
-    gtag?: any;
-    dataLayer?: any;
-}
+    gtag?: GtagFn;
+    dataLayer?: DataLayer;
+};

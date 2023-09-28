@@ -1,17 +1,22 @@
 import {TestBed} from '@angular/core/testing';
 import {GoogleAnalyticsService} from './google-analytics.service';
 import {provideGoogleAnalytics} from '../ngx-google-analytics.provider';
+import {DataLayer} from '../types/data-layer.type';
+import {GtagFnArgs} from '../types/gtag.type';
+import {GaWindow} from '../tokens/ngx-google-analytics-window';
 
 describe('GoogleAnalyticsService', () => {
 
-    window['dataLayer'] = [];
+    const globalWindow: GaWindow = window;
 
-    window['gtag'] = function () {
-        window['dataLayer'].push(arguments as any);
+    globalWindow.dataLayer = [] as DataLayer;
+
+    globalWindow.gtag = function (...args: GtagFnArgs): void {
+        globalWindow.dataLayer.push(args);
     };
 
     const tracking = 'GA-000000000';
-    let spyOnGtag: jest.SpyInstance<any, unknown[]>;
+    let spyOnGtag: jest.SpyInstance<void, GtagFnArgs, unknown>;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -22,7 +27,7 @@ describe('GoogleAnalyticsService', () => {
     });
 
     beforeEach(() => {
-        spyOnGtag = jest.spyOn(window as any, 'gtag');
+        spyOnGtag = jest.spyOn(globalWindow, 'gtag');
     });
 
     it('should call gtag fn w/ action/command pair', () => {

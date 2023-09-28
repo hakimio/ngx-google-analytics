@@ -19,6 +19,5 @@ export enum GaActionEnum {
     VIEW_ITEM = 'view_item',
     VIEW_ITEM_LIST = 'view_item_list',
     VIEW_PROMOTION = 'view_promotion',
-    VIEW_SEARCH_RESULT = 'view_search_results',
-    VIEW_SEARCH_RESULTS = 'view_search_results',
+    VIEW_SEARCH_RESULT = 'view_search_results'
 }

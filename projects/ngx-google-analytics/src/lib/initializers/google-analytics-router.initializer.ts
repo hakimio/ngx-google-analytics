@@ -1,5 +1,5 @@
 import {APP_BOOTSTRAP_LISTENER, ComponentRef, Provider} from '@angular/core';
-import {NavigationEnd, Router} from '@angular/router';
+import {Event, NavigationEnd, Router} from '@angular/router';
 import {filter, skip} from 'rxjs/operators';
 import {IGoogleAnalyticsRoutingSettings} from '../interfaces/i-google-analytics-routing-settings';
 import {GoogleAnalyticsService} from '../services/google-analytics.service';
@@ -33,7 +33,7 @@ export function GoogleAnalyticsRouterInitializer(
     settings: IGoogleAnalyticsRoutingSettings,
     gaService: GoogleAnalyticsService
 ) {
-    return async (c: ComponentRef<any>) => {
+    return async (c: ComponentRef<unknown>) => {
         const router = c.injector.get(Router);
         const {include = [], exclude = []} = settings ?? {};
         const includeRules = normalizePathRules(include);
@@ -41,7 +41,7 @@ export function GoogleAnalyticsRouterInitializer(
         const subs = router
             .events
             .pipe(
-                filter((event: any) => event instanceof NavigationEnd),
+                filter((event: Event): event is NavigationEnd => event instanceof NavigationEnd),
                 skip(1), // Prevent double views on the first trigger (because GA Already send one ping on setup)
                 filter(event => includeRules.length > 0
                     ? includeRules.some(rule => rule.test(event.urlAfterRedirects))

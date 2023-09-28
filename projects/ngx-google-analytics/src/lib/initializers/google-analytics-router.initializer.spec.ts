@@ -1,6 +1,6 @@
 import {ComponentRef, Injector} from '@angular/core';
 import {TestBed} from '@angular/core/testing';
-import {NavigationEnd, NavigationStart, Router} from '@angular/router';
+import {NavigationEnd, NavigationStart, Router, Event} from '@angular/router';
 import {Subject} from 'rxjs';
 import {GoogleAnalyticsService} from '../services/google-analytics.service';
 import {GoogleAnalyticsRouterInitializer} from './google-analytics-router.initializer';
@@ -8,23 +8,23 @@ import {GoogleAnalyticsRouterInitializer} from './google-analytics-router.initia
 describe('googleAnalyticsRouterInitializer(settings, gaService)', () => {
 
     function fakeTransform<Dest>(obj: Partial<Dest>): Dest {
-        return obj as any;
+        return obj as Dest;
     }
 
     let gaService: GoogleAnalyticsService,
         spyOnGaService: jest.SpyInstance,
-        router$: Subject<any>,
+        router$: Subject<Event>,
         router: Router,
-        component: ComponentRef<any>;
+        component: ComponentRef<unknown>;
 
     beforeEach(() => {
         gaService = TestBed.inject(GoogleAnalyticsService);
         spyOnGaService = jest.spyOn(gaService, 'pageView');
-        router$ = new Subject<any>();
+        router$ = new Subject<Event>();
         router = fakeTransform<Router>({
             events: router$
         });
-        component = fakeTransform<ComponentRef<any>>({
+        component = fakeTransform<ComponentRef<unknown>>({
             injector: fakeTransform<Injector>({
                 get: () => router
             }),

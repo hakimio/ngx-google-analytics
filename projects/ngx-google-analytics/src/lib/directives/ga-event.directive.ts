@@ -66,7 +66,7 @@ export class GaEventDirective implements OnDestroy {
                         interaction: this.gaInteraction
                     }
                 );
-        } catch (err: any) {
+        } catch (err) {
             this.throw(err);
         }
     }

@@ -152,8 +152,8 @@
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.html"
+              "projects/ngx-google-analytics/**/*.ts",
+              "projects/ngx-google-analytics/**/*.html"
             ]
           }
         }

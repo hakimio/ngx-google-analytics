@@ -1,3 +1,5 @@
+import {Primitive} from '../types/primitive.type';
+
 export interface IGoogleAnalyticsServiceEvent {
     category?: string;
     label?: string;
@@ -6,14 +8,14 @@ export interface IGoogleAnalyticsServiceEvent {
     // If user interaction is performed
     interaction?: boolean;
     // Custom dimensions
-    options?: Object;
+    options?: Record<string, Primitive>;
 }
 
 export interface IGoogleAnalyticsServicePageView {
     title?: string;
     location?: string;
     // Custom dimensions
-    options?: Object;
+    options?: Record<string, Primitive>;
 }
 
 export interface IGoogleAnalyticsServiceAppView {
