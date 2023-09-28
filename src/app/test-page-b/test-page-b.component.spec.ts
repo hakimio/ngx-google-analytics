@@ -1,31 +1,29 @@
-import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {TestPageBComponent} from './test-page-b.component';
 import {RouterTestingModule} from '@angular/router/testing';
 
 describe('TestPageBComponent', () => {
-  let component: TestPageBComponent;
-  let fixture: ComponentFixture<TestPageBComponent>;
+    let component: TestPageBComponent;
+    let fixture: ComponentFixture<TestPageBComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-        declarations: [
-          TestPageBComponent
-        ],
-        imports: [
-          RouterTestingModule
-        ]
-      })
-      .compileComponents();
-  }));
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+                imports: [
+                    RouterTestingModule,
+                    TestPageBComponent
+                ]
+            })
+            .compileComponents();
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(TestPageBComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(TestPageBComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

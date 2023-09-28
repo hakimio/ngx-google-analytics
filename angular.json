@@ -16,7 +16,7 @@
             "outputPath": "dist/ngx-google-analytics-sdk",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
+            "polyfills": ["zone.js"],
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
@@ -81,8 +81,8 @@
         "test": {
           "builder": "@angular-builders/jest:run",
           "options": {
-            "configPath": "jest.config.js",
-            "tsConfig": "tsconfig.spec.json"
+            "configPath": "src/jest.config.js",
+            "tsConfig": "src/tsconfig.spec.json"
           }
         }
       }
