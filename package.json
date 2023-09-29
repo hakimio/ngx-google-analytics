@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build ngx-google-analytics",
+    "build:watch": "ng build ngx-google-analytics --watch",
     "test": "ng test ngx-google-analytics",
     "lint": "ng lint ngx-google-analytics",
     "build:demo": "ng build ngx-google-analytics-sdk",
