@@ -37,5 +37,8 @@ jobs:
     - name: Build Angular Library
       run: npm run build
 
-    - name: Running Tests
+    - name: Lint
+      run: npm run lint
+
+    - name: Run Tests
       run: npm run test
