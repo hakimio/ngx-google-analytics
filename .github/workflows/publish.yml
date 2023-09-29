@@ -55,7 +55,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: ${{ steps.get_version.outputs.VERSION }}.tgz
-          path: dist/ngx-google-analytics/ngx-google-analytics-4-${{ steps.get_version.outputs.VERSION }}.tgz
+          path: dist/ngx-google-analytics/hakimio-ngx-google-analytics-${{ steps.get_version.outputs.VERSION }}.tgz
 
   publish-npm:
     needs: bump-and-build
@@ -72,6 +72,6 @@ jobs:
         with:
           node-version: 18.x
           registry-url: https://registry.npmjs.org/
-      - run: npm publish ngx-google-analytics-4-${{ steps.get_version.outputs.VERSION }}.tgz
+      - run: npm publish hakimio-ngx-google-analytics-${{ steps.get_version.outputs.VERSION }}.tgz
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}

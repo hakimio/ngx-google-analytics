@@ -8,7 +8,7 @@ module.exports = {
         "<rootDir>/projects/"
     ],
     moduleNameMapper: {
-        'ngx-google-analytics': "<rootDir>/dist/ngx-google-analytics/fesm2022/ngx-google-analytics-4.mjs",
+        '@hakimio/ngx-google-analytics': "<rootDir>/dist/ngx-google-analytics/fesm2022/hakimio-ngx-google-analytics.mjs",
     },
     verbose: true
 };

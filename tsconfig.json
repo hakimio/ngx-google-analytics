@@ -20,10 +20,10 @@
       "dom"
     ],
     "paths": {
-      "ngx-google-analytics": [
+      "@hakimio/ngx-google-analytics": [
         "dist/ngx-google-analytics"
       ],
-      "ngx-google-analytics/*": [
+      "@hakimio/ngx-google-analytics/*": [
         "dist/ngx-google-analytics/*"
       ]
     },

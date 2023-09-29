@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {NgxGoogleAnalyticsModule} from 'ngx-google-analytics';
+import {NgxGoogleAnalyticsModule} from '@hakimio/ngx-google-analytics';
 import {RouterLink, RouterOutlet} from '@angular/router';
 
 @Component({

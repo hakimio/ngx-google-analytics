@@ -2,7 +2,7 @@ import {EnvironmentProviders, Provider, provideZoneChangeDetection} from '@angul
 import {provideRouter} from '@angular/router';
 import {ROUTES} from './app.routes';
 import {provideAnimations} from '@angular/platform-browser/animations';
-import {provideGoogleAnalytics, provideGoogleAnalyticsRouter} from 'ngx-google-analytics';
+import {provideGoogleAnalytics, provideGoogleAnalyticsRouter} from '@hakimio/ngx-google-analytics';
 import {environment} from '../environments/environment';
 import {REMOVE_STYLES_ON_COMPONENT_DESTROY} from '@angular/platform-browser';
 

@@ -1,8 +1,8 @@
-# Ngx Google Analytics 4
+# Ngx Google Analytics
 
 > A simple way to track GA4 events in Angular apps.
 
-`ngx-google-analytics-4` is a fork of __Max Andriani's__ `ngx-google-analytics`.
+`@hakimio/ngx-google-analytics` is a fork of __Max Andriani's__ `ngx-google-analytics`.
 
 # Index
 
@@ -24,7 +24,7 @@
 ### Install the package
 
 ```
-npm install ngx-google-analytics-4
+npm install @hakimio/ngx-google-analytics
 ```
 
 ### Simple Setup
@@ -33,7 +33,7 @@ npm install ngx-google-analytics-4
 - Add `provideGoogleAnalytics('ga4-tag-id')` in your root app providers. If you can not find your GA4 tag id, see [this](https://support.google.com/analytics/answer/9539598?sjid=1584949217252276099-EU) Google help page.
 
 ```ts
-import {NgxGoogleAnalyticsModule, provideGoogleAnalytics} from 'ngx-google-analytics-4';
+import {NgxGoogleAnalyticsModule, provideGoogleAnalytics} from '@hakimio/ngx-google-analytics';
 
 @NgModule({
     declarations: [
@@ -60,7 +60,7 @@ If you are using Angular Router and would like to track page views, you can incl
 **IMPORTANT:** `provideGoogleAnalyticsRouter()` is not compatible with SSR and should not be included in server app providers.
 
 ```ts
-import {NgxGoogleAnalyticsModule, provideGoogleAnalytics, provideGoogleAnalyticsRouter} from 'ngx-google-analytics-4';
+import {NgxGoogleAnalyticsModule, provideGoogleAnalytics, provideGoogleAnalyticsRouter} from '@hakimio/ngx-google-analytics';
 
 @NgModule({
     imports: [
@@ -88,7 +88,7 @@ Following path matches are supported:
 - Regex path match: `{ include: [ /^\/public\/.*/ ] }`;
 
 ```ts
-import {NgxGoogleAnalyticsModule, provideGoogleAnalytics, provideGoogleAnalyticsRouter} from 'ngx-google-analytics-4';
+import {NgxGoogleAnalyticsModule, provideGoogleAnalytics, provideGoogleAnalyticsRouter} from '@hakimio/ngx-google-analytics';
 
 @NgModule({
     imports: [
