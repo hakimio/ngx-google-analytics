@@ -1,6 +1,6 @@
 import {APP_BOOTSTRAP_LISTENER, ComponentRef, Provider} from '@angular/core';
 import {Event, NavigationEnd, Router} from '@angular/router';
-import {filter, skip} from 'rxjs/operators';
+import {filter, skip} from 'rxjs';
 import {IGoogleAnalyticsRoutingSettings} from '../interfaces/i-google-analytics-routing-settings';
 import {GoogleAnalyticsService} from '../services/google-analytics.service';
 import {NGX_GOOGLE_ANALYTICS_ROUTING_SETTINGS_TOKEN} from '../tokens/ngx-google-analytics-router-settings-token';
