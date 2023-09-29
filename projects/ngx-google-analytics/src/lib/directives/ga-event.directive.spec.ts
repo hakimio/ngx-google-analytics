@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {GaActionEnum} from '../enums/ga-action.enum';
 import {NgxGoogleAnalyticsModule} from '../ngx-google-analytics.module';
@@ -55,7 +55,12 @@ describe('GaEventDirective', () => {
                 [gaValue]="gaValue"
                 [gaInteraction]="gaInteraction"
                 gaBind="custom"></button>
-        `
+        `,
+        standalone: true,
+        changeDetection: ChangeDetectionStrategy.OnPush,
+        imports: [
+            NgxGoogleAnalyticsModule
+        ]
     })
     class HostComponent {
         gaAction: GaActionEnum | string;
@@ -73,9 +78,6 @@ describe('GaEventDirective', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [
-                NgxGoogleAnalyticsModule
-            ],
-            declarations: [
                 HostComponent
             ]
         }).compileComponents();

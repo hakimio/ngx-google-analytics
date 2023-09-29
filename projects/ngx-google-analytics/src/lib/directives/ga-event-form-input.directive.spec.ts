@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {NgxGoogleAnalyticsModule} from '../ngx-google-analytics.module';
 import {GoogleAnalyticsService} from '../services/google-analytics.service';
@@ -10,7 +10,12 @@ describe('GaEventFormInputDirective', () => {
 
     @Component({
         selector: 'ga-host',
-        template: `<input gaEvent="test">`
+        template: `<input gaEvent="test">`,
+        standalone: true,
+        changeDetection: ChangeDetectionStrategy.OnPush,
+        imports: [
+            NgxGoogleAnalyticsModule
+        ]
     })
     class HostComponent {}
 
@@ -21,9 +26,6 @@ describe('GaEventFormInputDirective', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [
-                NgxGoogleAnalyticsModule
-            ],
-            declarations: [
                 HostComponent
             ]
         }).compileComponents();

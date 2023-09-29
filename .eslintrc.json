@@ -50,6 +50,12 @@
               "requireLast": false
             }
           }
+        ],
+        "@angular-eslint/prefer-standalone-component": [
+          "error"
+        ],
+        "@angular-eslint/prefer-on-push-component-change-detection": [
+          "error"
         ]
       }
     },

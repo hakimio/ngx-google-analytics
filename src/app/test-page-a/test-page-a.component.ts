@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {RouterLink} from '@angular/router';
 
 @Component({
@@ -6,6 +6,7 @@ import {RouterLink} from '@angular/router';
     templateUrl: './test-page-a.component.html',
     styleUrls: ['./test-page-a.component.css'],
     standalone: true,
-    imports: [RouterLink]
+    imports: [RouterLink],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TestPageAComponent {}
