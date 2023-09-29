@@ -8,7 +8,8 @@
 
 - [Setup](#setup)
   - [Install the package](#install-the-package)
-  - [Simple Setup](#simple-setup)
+  - [Standalone](#standalone-app-component)
+  - [NgModule](#ngmodule)
   - [Setup Router Provider](#setup-router-provider)
   - [Advanced Router Provider Setup](#advanced-router-provider-setup)
 - [GoogleAnalyticsService](#googleanalyticsservice)
@@ -27,11 +28,53 @@
 npm install @hakimio/ngx-google-analytics
 ```
 
-### Simple Setup
+### Standalone app component
 
-- Add `NgxGoogleAnalyticsModule` in your root app module (`AppModule`) `imports`. 
-- Add `provideGoogleAnalytics('ga4-tag-id')` in your root app providers. If you can not find your GA4 tag id, see [this](https://support.google.com/analytics/answer/9539598?sjid=1584949217252276099-EU) Google help page.
+If your app component is using standalone API, follow these steps to set up the library:
+- Add `provideGoogleAnalytics('ga4-tag-id')` to your app's providers. If you can not find your GA4 tag id, see [this](https://support.google.com/analytics/answer/9539598?sjid=1584949217252276099-EU) Google help page.
 
+`main.ts`
+```ts
+import {AppComponent} from './app/app.component';
+import {bootstrapApplication} from '@angular/platform-browser';
+import {ROUTES} from './app/app.routes';
+import {provideGoogleAnalytics} from '@hakimio/ngx-google-analytics';
+
+bootstrapApplication(AppComponent, {
+    providers: [
+        provideRouter(ROUTES),
+        provideAnimations(),
+        provideGoogleAnalytics('ga4-tag-id')
+        // ^^^^^^^^^^^^^^^^^^^^^
+    ]
+}).catch(err => console.error(err));
+```
+- Add `NgxGoogleAnalyticsModule` to your app component's imports:
+
+`app.component.ts`
+```ts
+import {NgxGoogleAnalyticsModule} from '@hakimio/ngx-google-analytics';
+
+@Component({
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css'],
+    standalone: true,
+    imports: [
+        NgxGoogleAnalyticsModule
+        // ^^^^^^^^^^^^^^^^^^^^^
+    ]
+})
+export class AppComponent {}
+```
+
+### NgModule
+
+If your application is `NgModule` based, follow these steps to set up the library:
+- Add `NgxGoogleAnalyticsModule` to your root app module's (`AppModule`) `imports`. 
+- Add `provideGoogleAnalytics('ga4-tag-id')` in your app module's providers. If you can not find your GA4 tag id, see [this](https://support.google.com/analytics/answer/9539598?sjid=1584949217252276099-EU) Google help page.
+
+`app.module.ts`
 ```ts
 import {NgxGoogleAnalyticsModule, provideGoogleAnalytics} from '@hakimio/ngx-google-analytics';
 
