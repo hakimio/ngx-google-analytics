@@ -184,6 +184,8 @@ you can simply add `ga*` attributes to your html elements.
 
 By default, the directive calls `gtag()` on click events, but you can also specify other events by providing `gaBind` attribute.
 
+**IMPORTANT:** Remember to import `NgxGoogleAnalyticsModule` in all your standalone components and modules where you use `ga*` directives.
+
 ```html
 <div>
   <button gaEvent="click_test" gaCategory="ga_directive_test">Click Test</button>
