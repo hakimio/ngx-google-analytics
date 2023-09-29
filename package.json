@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "prestart": "npm run build",
     "start": "ng serve",
     "build": "ng build ngx-google-analytics",
     "test": "ng test ngx-google-analytics",
