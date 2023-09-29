@@ -4,5 +4,8 @@ module.exports = {
             diagnostics: false
         }]
     },
+    modulePathIgnorePatterns: [
+        "<rootDir>/dist/"
+    ],
     verbose: true
 };
