@@ -18,16 +18,16 @@ describe('AppComponent', () => {
         expect(app).toBeTruthy();
     });
 
-    it(`should have as title 'ngx-google-analytics-sdk'`, () => {
+    it(`should have as title 'ngx-google-analytics'`, () => {
         const fixture = TestBed.createComponent(AppComponent);
         const app = fixture.debugElement.componentInstance;
-        expect(app.title).toEqual('ngx-google-analytics-sdk');
+        expect(app.title).toEqual('ngx-google-analytics');
     });
 
     it('should render title in a h1 tag', () => {
         const fixture = TestBed.createComponent(AppComponent);
         fixture.detectChanges();
         const compiled = fixture.debugElement.nativeElement;
-        expect(compiled.querySelector('h1').textContent).toContain('Welcome to ngx-google-analytics-sdk!');
+        expect(compiled.querySelector('h1').textContent).toContain('Welcome to ngx-google-analytics!');
     });
 });

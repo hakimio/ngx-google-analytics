@@ -11,5 +11,5 @@ import {RouterLink, RouterOutlet} from '@angular/router';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
-    title = 'ngx-google-analytics-sdk';
+    title = 'ngx-google-analytics';
 }
