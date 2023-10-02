@@ -107,7 +107,7 @@ export class GoogleAnalyticsService {
                     .entries(options.options)
                     .map(([key, value]) => opt.set(key, value));
             }
-            this.gtag('config', this.settings.ga4TagId, this.toKeyValue(opt));
+            this.gtag('event', 'page_view', this.toKeyValue(opt));
         } catch (error) {
             this.throw(error);
         }

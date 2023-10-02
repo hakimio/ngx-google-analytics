@@ -101,7 +101,7 @@ describe('GoogleAnalyticsService', () => {
 
             ga.pageView(page_path);
 
-            expect(spyOnGtag).toHaveBeenCalledWith('config', tracking, {
+            expect(spyOnGtag).toHaveBeenCalledWith('event', 'page_view', {
                 page_path,
                 page_location: document.location.href
             });
@@ -114,7 +114,7 @@ describe('GoogleAnalyticsService', () => {
 
             ga.pageView(page_path, {title: page_title});
 
-            expect(spyOnGtag).toHaveBeenCalledWith('config', tracking, {
+            expect(spyOnGtag).toHaveBeenCalledWith('event', 'page_view', {
                 page_path,
                 page_title,
                 page_location: document.location.href
@@ -128,7 +128,7 @@ describe('GoogleAnalyticsService', () => {
 
             ga.pageView(page_path, {location: page_location});
 
-            expect(spyOnGtag).toHaveBeenCalledWith('config', tracking, {page_path, page_location});
+            expect(spyOnGtag).toHaveBeenCalledWith('event', 'page_view', {page_path, page_location});
         });
 
         it('should use `document.location.href` as a default `page_location`', () => {
@@ -137,7 +137,7 @@ describe('GoogleAnalyticsService', () => {
 
             ga.pageView(page_path, undefined);
 
-            expect(spyOnGtag).toHaveBeenCalledWith('config', tracking, {
+            expect(spyOnGtag).toHaveBeenCalledWith('event', 'page_view', {
                 page_path,
                 page_location: document.location.href
             });
