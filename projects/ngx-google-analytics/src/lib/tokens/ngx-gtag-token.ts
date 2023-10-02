@@ -1,6 +1,6 @@
 import {inject, InjectionToken} from '@angular/core';
 import {DataLayer} from '../types/data-layer.type';
-import {GtagFn} from '../types/gtag.type';
+import {GtagFn, GtagFnArgs} from '../types/gtag.type';
 import {NGX_DATA_LAYER} from './ngx-data-layer-token';
 import {GaWindow} from './ngx-google-analytics-window';
 import {NGX_WINDOW} from './ngx-window-token';
@@ -10,8 +10,11 @@ import {NGX_WINDOW} from './ngx-window-token';
  */
 export function getGtagFn(window: GaWindow, dataLayer: DataLayer): GtagFn | null {
     return (window)
-        ? window['gtag'] = window['gtag'] || function (...args) {
-            dataLayer.push(args);
+        ? window['gtag'] = window['gtag'] || function () {
+            // IMPORTANT: rest param syntax (...args) cannot be used here since "gtag" push implementation requires
+            // "callee" information which is not available in normal array
+            // eslint-disable-next-line prefer-rest-params
+            dataLayer.push(arguments as unknown as GtagFnArgs);
         }
         : null;
 }
