@@ -4,6 +4,12 @@
 
 `@hakimio/ngx-google-analytics` is a fork of __Max Andriani's__ `ngx-google-analytics`.
 
+---
+
+![Build Status](https://img.shields.io/github/actions/workflow/status/hakimio/ngx-google-analytics/tests.yml)
+[![Version Number](https://img.shields.io/npm/v/@hakimio/ngx-google-analytics.svg)](https://www.npmjs.com/package/@hakimio/ngx-google-analytics)
+[![License](https://img.shields.io/npm/l/@hakimio/ngx-google-analytics.svg)](https://www.npmjs.com/package/@hakimio/ngx-google-analytics)
+
 # Index
 
 - [Setup](#setup)
