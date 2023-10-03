@@ -44,11 +44,13 @@ bootstrapApplication(AppComponent, {
     providers: [
         provideRouter(ROUTES),
         provideAnimations(),
-        provideGoogleAnalytics('ga4-tag-id')
-        // ^^^^^^^^^^^^^^^^^^^^^
+        provideGoogleAnalytics('ga4-tag-id') // ⬅️ Google Analytics provider
     ]
 }).catch(err => console.error(err));
 ```
+You can also specify additional settings using the second optional parameter: `provideGoogleAnalytics('ga4-tag-id', settings)`.
+See [IGoogleAnalyticsSettings](https://github.com/hakimio/ngx-google-analytics/blob/master/projects/ngx-google-analytics/src/lib/interfaces/i-google-analytics-settings.ts)
+interface for more information about available settings.  
 - Add `NgxGoogleAnalyticsModule` to your app component's imports:
 
 `app.component.ts`
@@ -61,8 +63,7 @@ import {NgxGoogleAnalyticsModule} from '@hakimio/ngx-google-analytics';
     styleUrls: ['./app.component.css'],
     standalone: true,
     imports: [
-        NgxGoogleAnalyticsModule
-        // ^^^^^^^^^^^^^^^^^^^^^
+        NgxGoogleAnalyticsModule // ⬅️ Google Analytics module
     ]
 })
 export class AppComponent {}
@@ -84,17 +85,18 @@ import {NgxGoogleAnalyticsModule, provideGoogleAnalytics} from '@hakimio/ngx-goo
     ],
     imports: [
         BrowserModule,
-        NgxGoogleAnalyticsModule
-        // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        NgxGoogleAnalyticsModule // ⬅️ Google Analytics module
     ],
     providers: [
-        provideGoogleAnalytics('ga4-tag-id')
-        // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        provideGoogleAnalytics('ga4-tag-id') // ⬅️ Google Analytics provider
     ],
     bootstrap: [AppComponent]
 })
 export class AppModule {}
 ```
+You can also specify additional settings using the second optional parameter: `provideGoogleAnalytics('ga4-tag-id', settings)`.
+See [IGoogleAnalyticsSettings](https://github.com/hakimio/ngx-google-analytics/blob/master/projects/ngx-google-analytics/src/lib/interfaces/i-google-analytics-settings.ts)
+interface for more information about available settings.
 
 ### Setup Router Provider
 
@@ -108,13 +110,11 @@ import {NgxGoogleAnalyticsModule, provideGoogleAnalytics, provideGoogleAnalytics
 @NgModule({
     imports: [
         // ...
-        NgxGoogleAnalyticsModule
-        // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        NgxGoogleAnalyticsModule // ⬅️ Google Analytics module
     ],
     providers: [
         provideGoogleAnalytics('ga4-tag-id'),
-        provideGoogleAnalyticsRouter()
-        //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        provideGoogleAnalyticsRouter() // ⬅️ Google Analytics router provider
     ]
 })
 export class AppModule {}
@@ -136,16 +136,14 @@ import {NgxGoogleAnalyticsModule, provideGoogleAnalytics, provideGoogleAnalytics
 @NgModule({
     imports: [
         // ...
-        NgxGoogleAnalyticsModule
-        // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        NgxGoogleAnalyticsModule // ⬅️ Google Analytics module
     ],
     providers: [
         provideGoogleAnalytics('ga4-tag-id'),
-        provideGoogleAnalyticsRouter({
+        provideGoogleAnalyticsRouter({ // ⬅️ Google Analytics router provider
             include: ['/some-path'],
             exclude: ['*/another/path/*']
         })
-        //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     ]
 })
 export class AppModule {}
