@@ -1,6 +1,6 @@
 {
   "name": "@hakimio/ngx-google-analytics",
-  "version": "16.0.0",
+  "version": "15.0.0",
   "description": "A simple Google Analytics wrapper for Angular apps",
   "keywords": [ "google", "google analytics", "angular", "ga4", "analytics 4" ],
   "homepage": "https://github.com/hakimio/ngx-google-analytics",
