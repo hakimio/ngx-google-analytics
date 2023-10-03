@@ -6,7 +6,7 @@
 
 ---
 
-![Build Status](https://img.shields.io/github/actions/workflow/status/hakimio/ngx-google-analytics/tests.yml)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/hakimio/ngx-google-analytics/tests.yml)](https://github.com/hakimio/ngx-google-analytics/actions/workflows/tests.yml)
 [![Version Number](https://img.shields.io/npm/v/@hakimio/ngx-google-analytics.svg)](https://www.npmjs.com/package/@hakimio/ngx-google-analytics)
 [![License](https://img.shields.io/npm/l/@hakimio/ngx-google-analytics.svg)](https://www.npmjs.com/package/@hakimio/ngx-google-analytics)
 
